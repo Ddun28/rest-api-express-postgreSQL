@@ -1,8 +1,7 @@
 import {Request, Response} from 'express'
 import Product from '../models/Product.model'
 
-export const getProducts = async (req: Request , res: Response) => {
-    try {       
+export const getProducts = async (req: Request , res: Response) => {    
         const products = await Product.findAll({
             order: [
                 ['id', 'ASC']
@@ -11,10 +10,6 @@ export const getProducts = async (req: Request , res: Response) => {
         })
         
         res.json({data: products})
-    } catch (error) {
-        console.log(error);
-    }
-
 }
 
 export const getProductsById = async (req: Request , res: Response) => {
@@ -29,12 +24,8 @@ export const getProductsById = async (req: Request , res: Response) => {
 }
 
 export const createProduct = async (req : Request, res : Response) => {
-   try {
     const product = await Product.create(req.body)  
     res.status(201).json({data: product})
-   } catch (error) {
-    console.log(error);
-   }
 }
 
 export const updateProduct = async (req, res) => {
@@ -55,7 +46,6 @@ export const updateProduct = async (req, res) => {
 }
 
 export const updateAvailability = async (req, res) => {
-
     const {id} = req.params
     const product = await Product.findByPk(id)
 
